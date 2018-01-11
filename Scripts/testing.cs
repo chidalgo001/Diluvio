@@ -10,7 +10,7 @@ public class testing : MonoBehaviour {
     public GUIStyle myStyle;
     public float x, y;
 
-    private void Start()
+    private void Start()// test 
     {
        
     }
