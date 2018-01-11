@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayScript : MonoBehaviour {
 
-    public Button YourButton;
+    public Button MyButton;
     public Text buttonText;
     private GameManager control;
     private Rigidbody2D rigid;
@@ -18,7 +18,7 @@ public class PlayScript : MonoBehaviour {
         finalPos = initPos + 12;
 
         control = GameManager.control;
-        YourButton.onClick.AddListener(TaskOnCLick);
+        MyButton.onClick.AddListener(TaskOnCLick);
 
         }
 	
@@ -42,8 +42,6 @@ public class PlayScript : MonoBehaviour {
             power = 0;
         }
 
-            
-        //Debug.Log(gameObject.transform.position.x);
     }
 
     private void TaskOnCLick()
@@ -52,7 +50,7 @@ public class PlayScript : MonoBehaviour {
         if (buttonText.text == "Play!")
         {
             control.Load();
-            SceneManager.LoadScene("PlayerSelect");
+            SceneManager.LoadScene("LevelSelector");
             
         }
         else if (buttonText.text == "Quit..")
@@ -60,7 +58,6 @@ public class PlayScript : MonoBehaviour {
         else if (buttonText.text == "Options")
         {
             control.options = true;
-            //SceneManager.LoadScene("Options");
         }
         else if (buttonText.text == "Back")
         {
@@ -70,7 +67,29 @@ public class PlayScript : MonoBehaviour {
         {
             GameManager.control.ResetData();
         }
-            
+        else if (buttonText.text == "Grassland")
+        {
+            control.SetLvlID(1);
+            SceneManager.LoadScene("PlayerSelect");
+
+        }
+        else if (buttonText.text == "Frozen Heights")
+        {
+            control.SetLvlID(2);
+
+            if(control.IsLvlUnlocked(control.levelID))
+                SceneManager.LoadScene("PlayerSelect");
+
+        }
+        else if (buttonText.text == "Ashen Flats")
+        {
+            control.SetLvlID(3);
+
+            if (control.IsLvlUnlocked(control.levelID))
+                SceneManager.LoadScene("PlayerSelect");
+
+        }
+
     }
 
 }

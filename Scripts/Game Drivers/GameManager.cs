@@ -13,10 +13,13 @@ public class GameManager : MonoBehaviour {
     private int playerId;
     public int score;
 
-    public int coins;
+    public int coins, levelID;
     public bool options;
+    public bool lvl2, lvl3, lvl4, lvl5;//NOTE: CHANGE THIS TO PRIVATE WHEN DONE
 
-    private bool female, glasses, tophat;
+    public bool female, glasses, tophat;
+
+    public bool inUse;//This is to track if  powerUp is in use or not
 
     // Use this for initialization
 
@@ -34,9 +37,11 @@ public class GameManager : MonoBehaviour {
     void Start () {
                 
         female = glasses = tophat = false;
+        lvl2 = lvl3 = lvl4 = lvl5 = false;
         coins = 0;
         options = false;
-
+        levelID = 0;
+        //Debug.Log(Application.persistentDataPath); //This is to get the path of the datafile saved
 	}
 	
 	// Update is called once per frame
@@ -56,6 +61,11 @@ public class GameManager : MonoBehaviour {
     public void SetPlayerID(int Id)
     {
         playerId = Id;
+    }
+
+    public void SetLvlID(int Id)
+    {
+        levelID = Id;
     }
 
     public int GetPlayerID()
@@ -96,6 +106,48 @@ public class GameManager : MonoBehaviour {
         return true;
     }
 
+    public void UnlockLevel(int levelID)
+    {
+        if (levelID == 2)
+        {
+            lvl2 = true;
+        }
+        else if (levelID == 3)
+        {
+            lvl3 = true;
+        }
+        else if (levelID == 4)
+        {
+            lvl4 = true;
+        }
+        else if (levelID == 5)
+        {
+            lvl5 = true;
+        }
+    }
+
+    public bool IsLvlUnlocked(int levelID)
+    {
+        if (levelID == 2)
+        {
+            return lvl2;
+        }
+        else if (levelID == 3)
+        {
+            return lvl3;
+        }
+        else if (levelID == 4)
+        {
+            return lvl4;
+        }
+        else if (levelID == 5)
+        {
+            return lvl5;
+        }
+
+        return true;
+    }
+
     public void Save()
     {
         BinaryFormatter bf = new BinaryFormatter();
@@ -107,6 +159,11 @@ public class GameManager : MonoBehaviour {
         data.tophat = tophat;
         data.score = score;
         data.coins = coins;
+
+        data.lvl2 = lvl2;
+        data.lvl3 = lvl3;
+        data.lvl4 = lvl4;
+        data.lvl5 = lvl5;
         //save data into "data"
 
         bf.Serialize(file, data);
@@ -127,6 +184,11 @@ public class GameManager : MonoBehaviour {
             score = data.score;
             coins = data.coins;
 
+            lvl2 = data.lvl2;
+            lvl3 = data.lvl3;
+            lvl4 = data.lvl4;
+            lvl5 = data.lvl5;
+
             file.Close();
 
             //set the values into data
@@ -136,6 +198,7 @@ public class GameManager : MonoBehaviour {
     public void ResetData()
     {
         female = glasses = tophat = false;
+        lvl2 = lvl3 = lvl4 = lvl5 = false;
         score = 0;
         coins = 0;
         Save();
@@ -148,6 +211,7 @@ class PlayerData
     public bool female;
     public bool glasses;
     public bool tophat;
+    public bool lvl2, lvl3, lvl4, lvl5;
     public int score;
     public int coins;
 }

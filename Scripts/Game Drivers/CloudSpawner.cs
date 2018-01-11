@@ -36,8 +36,7 @@ public class CloudSpawner : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        try
-        {
+
             if (player.GetBool("Death") == false)//this will spawn clouds only if alive.
             {
                 timer += Time.deltaTime;
@@ -48,18 +47,7 @@ public class CloudSpawner : MonoBehaviour
                 }
 
             }
-        }
-        catch {
 
-            timer += Time.deltaTime;
-            if (timer > duration)
-            {
-                SpawnCloud();
-                SetRandomTime();//sets random duration after initialization
-            }
-        }
-
-        
     }
 
 

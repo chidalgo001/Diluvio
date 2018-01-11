@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TextDisplayManager : MonoBehaviour {
 
@@ -10,7 +11,7 @@ public class TextDisplayManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         
-        if(highScore != null)
+        if(highScore != null && (SceneManager.GetActiveScene().name == "PlayerSelect"))
             highScore.text ="High Score: " + GameManager.control.score.ToString();
         coins.text = ": " + GameManager.control.coins.ToString();
 	}
@@ -18,9 +19,9 @@ public class TextDisplayManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (highScore != null)
-            highScore.text = "High Score: " + GameManager.control.score.ToString();
+        //if (highScore != null)
+        //    highScore.text = "High Score: " + GameManager.control.score.ToString();
         coins.text = ": " + GameManager.control.coins.ToString();
-
+        
     }
 }

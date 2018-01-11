@@ -20,6 +20,15 @@ public class BackScript : MonoBehaviour {
     void TaskOnClick()
     {
         GameManager.control.Save();
-        SceneManager.LoadScene("MainMenu");
+
+        if ( SceneManager.GetActiveScene().name  == "LevelSelector")
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+        else if ( SceneManager.GetActiveScene().name == "PlayerSelect")
+        {
+            SceneManager.LoadScene("LevelSelector");
+        }
+
     }
 }

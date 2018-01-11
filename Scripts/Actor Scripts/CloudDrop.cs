@@ -11,12 +11,24 @@ public class CloudDrop : MonoBehaviour {
 
     private Rigidbody2D droplet;
 
+    private GameManager control;
 
-	// Use this for initialization
-	void Start () {
- 
+    [SerializeField]
+    private Sprite iceDrop;
+    [SerializeField]
+    private Sprite fireDrop;
+    [SerializeField]
+    private Sprite poisonDrop;
+
+
+    // Use this for initialization
+    void Start () {
+
+        control = GameManager.control;
         droplet = GetComponent<Rigidbody2D>();
-		
+
+        DetermineImage(control.levelID);
+
 	}
 	
 	// Update is called once per frame
@@ -34,28 +46,41 @@ public class CloudDrop : MonoBehaviour {
 
     }
 
+
+    /// This will determine the image of the "rain" drops depending on the level selected 
+    /// <param name="level"></param>
+    private void DetermineImage(int level)
+    {
+        if (level == 2)
+        {
+            GetComponent<SpriteRenderer>().sprite = iceDrop;
+        }
+        else if (level == 3)
+        {
+            GetComponent<SpriteRenderer>().sprite = fireDrop;
+        }
+        else if (level == 4)
+        {
+            GetComponent<SpriteRenderer>().sprite = poisonDrop;
+        }
+        else if (level == 5)
+        {
+            GetComponent<SpriteRenderer>().sprite = iceDrop;
+        }
+    }
+
     //When the cloud drop touches the ground, it will be destroyed
     private void OnTriggerEnter2D(Collider2D other)
     {
  
-        if (other.gameObject.name == "Ground" || other.gameObject.tag == "Player")
+        if (other.gameObject.name == "Ground" || other.gameObject.tag == "Player" ||
+            other.gameObject.name == "umbrellaPU(Clone)")
         {
             Destroy(gameObject);
         }
     }
 
-
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-
-        if(other.gameObject.name == "Player")
-        {
-           
-        }
-
-
-    }
-
+    //When the object leaves the camera, the object is destroyed
     private void OnBecameInvisible()
     {
         Destroy(gameObject);

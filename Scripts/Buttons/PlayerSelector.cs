@@ -5,6 +5,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// This Script determines which player is selected and also it will load the corresponding level
+/// The level loaded is determined from the GameManager control
+/// </summary>
+
 public class PlayerSelector : MonoBehaviour {
 
     public Button yourButton; //this is to assign the button.
@@ -41,7 +47,7 @@ public class PlayerSelector : MonoBehaviour {
     
     // Update is called once per frame
     void Update () {
-		animator.SetBool("Unlock", control.IsUnlocked(ID));
+		animator.SetBool("Unlock", control.IsUnlocked(ID));// this verifies if the player is unlocked.
         coins = control.coins;
 	}
 
@@ -51,7 +57,19 @@ public class PlayerSelector : MonoBehaviour {
         
         if (animator.GetBool("Unlock") == true)
         {
-            SceneManager.LoadScene("Level_1");
+            if(control.levelID == 1)
+            {
+                SceneManager.LoadScene("Grassland_lvl");
+            }
+            else if (control.levelID == 2)
+            {
+                SceneManager.LoadScene("Iceland_lvl");
+            }
+            else if (control.levelID == 3)
+            {
+                SceneManager.LoadScene("Fireland_lvl");
+            }
+
         }
         else
         {
@@ -83,9 +101,10 @@ public class PlayerSelector : MonoBehaviour {
             message = "I'm missing " + (coinsNeeded - coins).ToString() + " coin(s).";
         }
 
-        GUI.Label(new Rect(30, 30, xsize - 60 , Screen.height / 25),"Want to unlock?");
+        GUI.Label(new Rect(30, 20, xsize - 60 , Screen.height / 25),"Want to unlock?");
 
-        if(GUI.Button(new Rect(30, (ysize/2 - ysize/4), xsize - 60, (ysize * 0.25f) - 60), message))
+        if(GUI.Button(new Rect(30, (ysize/2 - ysize/4), xsize - 60, (ysize * 0.25f) - 20), message))//have to find a way
+            //to make the button resize dynamicly (Change the y size)
         {
 
 
