@@ -26,6 +26,7 @@ public class RestartButton : MonoBehaviour {
 
     void TaskOnClick()
     {
+        GameManager.control.inUse = false;
         anim.SetBool("Reset", false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
